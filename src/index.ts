@@ -2,10 +2,10 @@ import { AnySchema } from 'joi';
 import Path from 'path';
 import { writeFileSync } from 'fs';
 
-import { Settings, ConvertedType } from './types';
+import { ConvertedType, Settings } from './types';
 import { convertFilesInDirectory } from './convertFilesInDirectory';
 import { writeInterfaceFile } from './writeInterfaceFile';
-import { convertSchemaInternal } from 'analyseSchemaFile';
+import { convertSchemaInternal } from './analyseSchemaFile';
 
 export { Settings };
 
@@ -47,7 +47,7 @@ export function convertSchema(
 
 export function getTypeFileNameFromSchema(schemaFileName: string, settings: Settings): string {
   return schemaFileName.endsWith(`${settings.schemaFileSuffix}.ts`)
-    ? schemaFileName.substring(0, schemaFileName.length - `${settings.schemaFileSuffix}.ts`.length)
+      ? schemaFileName.substring(0, schemaFileName.length - `${settings.schemaFileSuffix}.ts`.length)
     : schemaFileName.replace('.ts', '');
 }
 

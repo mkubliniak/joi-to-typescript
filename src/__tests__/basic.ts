@@ -10,7 +10,8 @@ describe('some basic tests', () => {
       propertyName1: Joi.boolean().required(),
       dateCreated: Joi.date(),
       count: Joi.number(),
-      obj: Joi.object()
+      obj: Joi.object(),
+      escape: Joi.string().valid("a'b", 'c"d', "e'f'g", 'h"i"j', '\\\\').required()
     })
       .label('TestSchema')
       .description('a test schema definition');
@@ -23,6 +24,7 @@ describe('some basic tests', () => {
 export interface TestSchema {
   count?: number;
   dateCreated?: Date;
+  escape: 'a\\'b' | 'c"d' | 'e\\'f\\'g' | 'h"i"j' | '\\\\\\\\';
   /**
    * Test Schema Name
    */

@@ -86,6 +86,18 @@ export interface Settings {
    * @default *.ts files
    */
   readonly inputFileFilter: RegExp;
+
+  /**
+   * Can be used to customize the name of the generated file.
+   * @default (name: string) => name
+   */
+  readonly mapTypeFileName: (name: string) => string;
+
+  /**
+   * Can be used to customize resulting type name.
+   * @default (name: string) => name
+   */
+  readonly mapTypeName: (name: string) => string;
 }
 
 export class InputFileFilter {

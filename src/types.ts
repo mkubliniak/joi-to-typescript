@@ -132,6 +132,18 @@ export interface Settings {
    * If defined, place every member of a tuple on a new line
    */
   readonly tupleNewLine?: boolean;
+
+  /**
+   * Can be used to customize the name of the generated file.
+   * @default (name: string) => name
+   */
+  readonly mapTypeFileName: (name: string) => string;
+
+  /**
+   * Can be used to customize resulting type name.
+   * @default (name: string) => name
+   */
+  readonly mapTypeName: (name: string) => string;
 }
 
 export class InputFileFilter {

@@ -15,14 +15,19 @@ export function convertSchemaInternal(
 ): ConvertedType | undefined {
   const details = joi.describe() as Describe;
 
-  const interfaceOrTypeName = getInterfaceOrTypeName(settings, details) || exportedName;
+  const defaultInterfaceOrTypeName = getInterfaceOrTypeName(settings, details) || exportedName;
 
-  if (!interfaceOrTypeName) {
+  if (!defaultInterfaceOrTypeName) {
     if (settings.useLabelAsInterfaceName) {
       throw new Error(`At least one "object" does not have .label(''). Details: ${JSON.stringify(details)}`);
     } else {
       throw new Error(`At least one "object" does not have .meta({className:''}). Details: ${JSON.stringify(details)}`);
     }
+  }
+
+  const interfaceOrTypeName = settings.mapTypeName(defaultInterfaceOrTypeName);
+  if (!interfaceOrTypeName) {
+    throw new Error(`Resulting type name cannot be empty. Default name was: ${defaultInterfaceOrTypeName}`);
   }
 
   if (settings.debug && interfaceOrTypeName.toLowerCase().endsWith('schema')) {
